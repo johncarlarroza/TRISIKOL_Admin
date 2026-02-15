@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:trisikol_admin/adminlogin.dart';
 
 class AdminTopBar extends StatelessWidget {
   const AdminTopBar({super.key});
@@ -26,11 +27,9 @@ class AdminTopBar extends StatelessWidget {
     if (confirmed ?? false) {
       await FirebaseAuth.instance.signOut();
       if (context.mounted) {
-        // Navigate to AdminLoginPage
-        Navigator.pushNamedAndRemoveUntil(
+        Navigator.pushReplacement(
           context,
-          '/adminLogin',
-          (route) => false,
+          MaterialPageRoute(builder: (_) => const AdminLoginPage()),
         );
       }
     }
@@ -54,28 +53,15 @@ class AdminTopBar extends StatelessWidget {
         ],
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // Profile Icon on top-left
           PopupMenuButton<String>(
             onSelected: (value) {
               if (value == 'logout') {
                 _logout(context);
-              } else if (value == 'settings') {
-                Navigator.pushNamed(context, '/settingsPage');
               }
             },
             itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 'settings',
-                child: Row(
-                  children: const [
-                    Icon(Icons.settings),
-                    SizedBox(width: 8),
-                    Text('Settings'),
-                  ],
-                ),
-              ),
-              const PopupMenuDivider(),
               PopupMenuItem(
                 value: 'logout',
                 child: Row(

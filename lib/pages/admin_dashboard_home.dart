@@ -139,9 +139,9 @@ class _AdminDashboardHomeState extends State<AdminDashboardHome> {
 
           /// KPI CARDS
           GridView.count(
-            crossAxisCount: 6,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
+            crossAxisCount: 5,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
@@ -205,14 +205,14 @@ class _AdminDashboardHomeState extends State<AdminDashboardHome> {
 
           const SizedBox(height: 10),
 
-          // // ANALYTICS SECTION
-          // Text(
-          //   'Analytics Overview',
-          //   style: Theme.of(
-          //     context,
-          //   ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-          // ),
-          // const SizedBox(height: 10),
+          // ANALYTICS SECTION
+          Text(
+            'Analytics Overview',
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
 
           // CHARTS VERTICAL STACK
           Column(
@@ -237,9 +237,21 @@ class _AdminDashboardHomeState extends State<AdminDashboardHome> {
                             );
                           }
                           return LineChart(
+                            // USERS PER DAY - LineChart
                             LineChartData(
-                              gridData: FlGridData(show: true),
-                              borderData: FlBorderData(show: true),
+                              gridData: FlGridData(
+                                show: true,
+                                drawVerticalLine:
+                                    false, // only horizontal lines
+                                horizontalInterval: 1,
+                                getDrawingHorizontalLine: (value) {
+                                  return FlLine(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    strokeWidth: 1,
+                                  );
+                                },
+                              ),
+                              borderData: FlBorderData(show: false),
                               titlesData: FlTitlesData(
                                 topTitles: AxisTitles(
                                   sideTitles: SideTitles(showTitles: false),
@@ -284,7 +296,7 @@ class _AdminDashboardHomeState extends State<AdminDashboardHome> {
                                   dotData: FlDotData(show: true),
                                   belowBarData: BarAreaData(
                                     show: true,
-                                    color: cardColors[0].withOpacity(0.3),
+                                    color: cardColors[0].withOpacity(1.0),
                                   ),
                                 ),
                               ],
@@ -348,8 +360,19 @@ class _AdminDashboardHomeState extends State<AdminDashboardHome> {
                           }
                           return BarChart(
                             BarChartData(
-                              gridData: FlGridData(show: true),
-                              borderData: FlBorderData(show: true),
+                              gridData: FlGridData(
+                                show: true,
+                                drawVerticalLine:
+                                    false, // only horizontal lines
+                                horizontalInterval: 1,
+                                getDrawingHorizontalLine: (value) {
+                                  return FlLine(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    strokeWidth: 1,
+                                  );
+                                },
+                              ),
+                              borderData: FlBorderData(show: false),
                               titlesData: FlTitlesData(
                                 topTitles: AxisTitles(
                                   sideTitles: SideTitles(showTitles: false),
